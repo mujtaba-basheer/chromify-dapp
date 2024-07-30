@@ -1,0 +1,78 @@
+.certificate-card {
+    width: 800px;
+    margin: 16px auto;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #fff;
+  }
+  
+  .certificate-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .certificate-institution {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .certificate-title {
+    font-size: 36px;
+    margin-bottom:20px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .certificate-subtitle {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .certificate-body {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  
+  .certificate-text {
+    font-size: 18px;
+  }
+  
+  .certificate-student-name {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #0073e6;
+  }
+  
+  .certificate-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  .certificate-issue-date,
+  .certificate-id {
+    font-size: 14px;
+  }
+  
+  .certificate-signature {
+    text-align: center;
+  }
+  
+  .certificate-signer {
+    font-size: 18px;
+    font-family: 'Cursive', sans-serif;
+  }
+  
+  .certificate-signer-title {
+    font-size: 14px;
+  }
+
+  /* .ant-form-item{
+    min-height: 70px;
+  } */
+  

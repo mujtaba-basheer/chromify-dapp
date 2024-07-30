@@ -1,0 +1,19 @@
+module;
+
+import ^.model.*;
+
+struct institute_dto {
+    wallet_address: byte_array;
+    name: text;
+    address: text;
+}
+
+struct nft_certificate_dto {
+    id: text;
+    owner: byte_array;
+    issued_by: struct<institute>;
+    student_id: text;
+    student_name: text;
+    course_name: text;
+    timestamp: integer;
+}

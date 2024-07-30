@@ -1,0 +1,130 @@
+module;
+
+import ^.model.*;
+import ^.dto.*;
+
+query get_institute(wallet_address: text) {
+    return institute @ {
+        .wallet_address == byte_array(wallet_address)
+    } (
+        institute_dto (
+            .wallet_address,
+            .name,
+            .address
+        )
+    );
+}
+
+query get_institutes() {
+    return institute @* { } (
+        institute_dto (
+            .wallet_address,
+            .name,
+            .address
+        )
+    );
+}
+
+query get_certificate_by_id(certificate_id: text) {
+    return nft_certificate @ {
+        .id == certificate_id
+    } (
+        nft_certificate_dto (
+            .id,
+            .owner,
+            .issued_by.to_struct(),
+            .student_id,
+            .student_name,
+            .course_name,
+            .timestamp
+        )
+    );
+}
+
+query get_certificates_by_institute(institute_wallet_address: text) {
+    return nft_certificate @* {
+        .issued_by.wallet_address == byte_array(institute_wallet_address)
+    } (
+        @sort_desc @omit .timestamp,
+        nft_certificate_dto (
+            .id,
+            .owner,
+            .issued_by.to_struct(),
+            .student_id,
+            .student_name,
+            .course_name,
+            .timestamp
+        )
+    );
+}
+
+query get_certificates_by_owner(owner_pubkey: text) {
+    return nft_certificate @* {
+        .owner == byte_array(owner_pubkey)
+    } (
+        @sort_desc @omit .timestamp,
+        nft_certificate_dto (
+            .id,
+            .owner,
+            .issued_by.to_struct(),
+            .student_id,
+            .student_name,
+            .course_name,
+            .timestamp
+        )
+    );
+}
+
+query get_certificates_by_student_id(student_id: text) {
+    return nft_certificate @* {
+        .student_id == student_id
+    } (
+        @sort_desc @omit .timestamp,
+        nft_certificate_dto (
+            .id,
+            .owner,
+            .issued_by.to_struct(),
+            .student_id,
+            .student_name,
+            .course_name,
+            .timestamp
+        )
+    );
+}
+
+query get_certificates() {
+    return nft_certificate @* { } (
+        @sort_desc @omit .timestamp,
+        nft_certificate_dto (
+            .id,
+            .owner,
+            .issued_by.to_struct(),
+            .student_id,
+            .student_name,
+            .course_name,
+            .timestamp
+        )
+    );
+}
+
+query verify_nft_certificate(certificate_id: text, student_id: text) {
+    val certificate = require(
+        nft_certificate @? { .id == certificate_id } (
+            nft_certificate_dto (
+                .id,
+                .owner,
+                .issued_by.to_struct(),
+                .student_id,
+                .student_name,
+                .course_name,
+                .timestamp
+            )
+        ),
+        "INVALID CERTIFICATE ID"
+    );
+    require(
+        certificate.student_id == student_id,
+        "CERTIFICATE NOT ISSUED TO STUDENT ID: %s".format(student_id)
+    );
+    return certificate;
+}

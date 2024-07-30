@@ -1,0 +1,37 @@
+module;
+
+import chromify.*;
+import ^.model.*;
+import lib.ft4.auth;
+import lib.ft4.accounts.strategies.open;
+import lib.ft4.accounts.strategies.{ register_account };
+
+@extend(auth.auth_handler)
+function () = auth.add_auth_handler(
+    flags = ["MySession"]
+);
+
+operation register_as_institute(
+    wallet_address: text,
+    name: text,
+    address: text
+) {
+    is_signed();
+    val account = register_account();
+    create institute ( account, byte_array(wallet_address), name, address );
+}
+
+operation mint_certificate(
+    institute_wallet_address: text,
+    id: text,
+    owner: byte_array,
+    student_id: text,
+    student_name: text,
+    course_name: text
+) {
+    is_signed();
+    auth.authenticate();
+    val institute = institute @? { .wallet_address == byte_array(institute_wallet_address) };
+    require(empty(institute) == false, "Signer is not registered as Institute");
+    create nft_certificate ( id, owner, require_not_empty(institute), student_id, student_name, course_name );
+}

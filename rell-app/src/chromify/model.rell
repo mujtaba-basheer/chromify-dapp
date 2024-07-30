@@ -1,0 +1,20 @@
+module;
+
+import lib.ft4.core.accounts.{ account };
+
+entity institute {
+    key account;
+    index wallet_address: byte_array;
+    name: text;
+    address: text;
+}
+
+entity nft_certificate {
+    key id: text;
+    index owner: byte_array;
+    index issued_by: institute;
+    index student_id: text;
+    student_name: text;
+    course_name: text;
+    timestamp = op_context.last_block_time;
+}

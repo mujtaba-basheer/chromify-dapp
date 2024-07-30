@@ -1,0 +1,5 @@
+module;
+
+import .model.*;
+
+function is_signed() = require(op_context.get_signers().size() == 1, "Institute must sign this operation");
