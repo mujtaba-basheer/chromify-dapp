@@ -1,5 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Layout, Menu, Button, Card, Modal, Avatar, Spin, Typography } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  Card,
+  Modal,
+  Avatar,
+  Spin,
+  Typography,
+} from "antd";
 import { BookOutlined, BankOutlined } from "@ant-design/icons";
 import IssueCertificateModal from "./IssueCertificateModal";
 import { useSessionContext } from "../../providers/ContextProvider";
@@ -7,7 +16,7 @@ import { useNotificationContext } from "../../providers/NotificationProvider";
 import logo from "../../asset/Group 1 (1).svg";
 import CertificateCard from "./CertificateCard";
 const { Header, Sider, Content } = Layout;
-const { Paragraph } = Typography
+const { Paragraph } = Typography;
 
 const Certificates = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -52,9 +61,12 @@ const Certificates = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
-        <div style={{ display: "flex", alignItems: "center",cursor:"pointer" }} onClick={() => {
-          window.location.pathname = "/";
-        }}>
+        <div
+          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+          onClick={() => {
+            window.location.pathname = "/";
+          }}
+        >
           {" "}
           <img
             src={logo}
@@ -76,7 +88,7 @@ const Certificates = () => {
               alignItems: "center",
             }}
           >
-            <Avatar icon={<BankOutlined />} style={{ marginRight: "30px" }} />
+            <Avatar icon={<BankOutlined />} style={{ marginRight: "10px" }} />
             <span>{account?.name}</span>
           </div>
           {/* 
@@ -148,7 +160,22 @@ const Certificates = () => {
                 certificates.map((cert) => (
                   <Card
                     key={cert.id}
-                    title={<div style={{ display: "flex" }}>Certificate ID:  <Paragraph copyable={cert.id} style={{ fontWeight: "300", fontSize: "14px", margin: "0px 5px" }}> {cert.id.slice(0, 15) + ".."}</Paragraph></div>}
+                    title={
+                      <div style={{ display: "flex" }}>
+                        Certificate ID:{" "}
+                        <Paragraph
+                          copyable={{ text: cert.id }}
+                          style={{
+                            fontWeight: "300",
+                            fontSize: "14px",
+                            margin: "0px 5px",
+                          }}
+                        >
+                          {" "}
+                          {cert.id.slice(0, 15) + ".."}
+                        </Paragraph>
+                      </div>
+                    }
                     style={{
                       width: 300,
                       display: "flex",
